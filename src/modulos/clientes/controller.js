@@ -1,8 +1,10 @@
 import { db } from '../../db/mysql.js';
 import { success, error } from '../../utils/response.js';
 
+// Nombre de la tabla en la base de datos
 const TABLE = 'clientes';
 
+// Función para listar todos los clientes
 async function list(req, res) {
     try {
         const data = await db.list(TABLE);
@@ -13,6 +15,7 @@ async function list(req, res) {
     }
 }
 
+// Función para obtener un cliente específico por ID
 async function get(req, res) {
     try {
         const { id } = req.params;
@@ -28,6 +31,7 @@ async function get(req, res) {
     }
 }
 
+// Función para insertar un nuevo cliente
 async function insert(req, res) {
     try {
         const data = await db.insert(TABLE, req.body);
@@ -38,6 +42,7 @@ async function insert(req, res) {
     }
 }
 
+// Función para actualizar un cliente existente
 async function update(req, res) {
     try {
         const { id } = req.params;
@@ -53,6 +58,7 @@ async function update(req, res) {
     }
 }
 
+// Función para eliminar un cliente
 async function remove(req, res) {
     try {
         const { id } = req.params;
@@ -68,6 +74,7 @@ async function remove(req, res) {
     }
 }
 
+// Exporta todas las funciones del controlador
 export default {
     list,
     get,

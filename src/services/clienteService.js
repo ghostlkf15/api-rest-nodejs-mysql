@@ -1,7 +1,8 @@
-import { db } from '../db/mysql.js'; // Asegúrate de que esto coincida con la exportación
+import { db } from '../db/mysql.js'; 
 
+// Función para actualizar un cliente
 export const actualizarCliente = async (id, data) => {
-  // Validación básica de los datos
+  // Validación básica de los datos de entrada
   if (!id || typeof id !== 'number') {
     throw new Error('ID de cliente inválido');
   }
@@ -21,7 +22,7 @@ export const actualizarCliente = async (id, data) => {
     const affectedRows = await db.update('clientes', { id, ...data });
     
     if (affectedRows > 0) {
-      // Obtener el cliente actualizado
+      // Obtener y devolver el cliente actualizado
       const clienteActualizado = await db.get('clientes', id);
       return clienteActualizado;
     } else {
@@ -51,6 +52,7 @@ export const listarClientes = async () => {
   }
 };
 
+// Función para eliminar un cliente
 export const eliminarCliente = async (id) => {
   try {
     const result = await db.remove('clientes', id);
@@ -61,10 +63,12 @@ export const eliminarCliente = async (id) => {
   }
 };
 
+// Función para crear un nuevo cliente
 export const crearCliente = async (clienteData) => {
   try {
     console.log('Datos recibidos en crearCliente:', JSON.stringify(clienteData, null, 2));
     
+    // Preparar los datos para la inserción
     const datosParaInsertar = {
       nombre: clienteData.nombre,
       edad: clienteData.edad,
@@ -78,6 +82,7 @@ export const crearCliente = async (clienteData) => {
     
     console.log('Datos para insertar:', JSON.stringify(datosParaInsertar, null, 2));
     
+    // Insertar el nuevo cliente y obtener su ID
     const insertedId = await db.insert('clientes', datosParaInsertar);
     console.log('ID del cliente insertado:', insertedId);
     
@@ -85,6 +90,7 @@ export const crearCliente = async (clienteData) => {
       throw new Error('No se pudo obtener el ID del cliente insertado');
     }
     
+    // Recuperar y devolver el cliente recién creado
     const nuevoCliente = await db.get('clientes', insertedId);
     console.log('Nuevo cliente recuperado:', JSON.stringify(nuevoCliente, null, 2));
     

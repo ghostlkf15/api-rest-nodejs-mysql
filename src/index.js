@@ -1,10 +1,12 @@
 import app from './app.js';
 import config from './config.js';
 
+// Establecer el puerto de la aplicación
 app.set('port', config.app.port);
 
 const PORT = app.get('port');
 
+// Iniciar el servidor
 const server = app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
     console.log(`Entorno: ${config.app.nodeEnv}`);
@@ -16,6 +18,7 @@ server.on('error', (error) => {
         throw error;
     }
 
+    // Manejar errores específicos de inicio del servidor
     switch (error.code) {
         case 'EACCES':
             console.error(`El puerto ${PORT} requiere privilegios elevados`);

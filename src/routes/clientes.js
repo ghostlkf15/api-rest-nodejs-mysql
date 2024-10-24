@@ -3,7 +3,6 @@ import { success, error } from '../utils/response.js';
 import { db } from '../db/mysql.js'; 
 import { actualizarCliente, obtenerCliente, listarClientes, eliminarCliente, crearCliente } from '../services/clienteService.js';
 import Cliente from '../models/Cliente.js';  
-import fetch from 'node-fetch';
 import { validateClienteData } from '../middlewares/validationMiddleware.js';
 
 const router = express.Router();
@@ -78,24 +77,6 @@ router.put('/:id', async (req, res, next) => {
       stack: error.stack 
     });
   }
-});
-
-router.get('/test-update', async (req, res) => {
-  const url = 'http://localhost:3000/api/clientes/1';
-  const data = {
-    nombre: 'Nuevo Nombre'
-  };
-
-  fetch(url, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data)
-  })
-  .then(response => response.json())
-    .then(data => console.log('Respuesta:', data))
-    .catch(error => console.error('Error:', error));
 });
 
 // Ruta para crear un nuevo cliente
