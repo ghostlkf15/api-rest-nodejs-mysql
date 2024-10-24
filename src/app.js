@@ -6,6 +6,7 @@ import clientesRouter from './routes/clientes.js';
 import cors from 'cors';
 import { db } from './db/mysql.js';
 import { pool } from './database.js';
+import userRoutes from './routes/userRoutes.js';
 
 const app = express();
 
@@ -38,6 +39,9 @@ app.get('/health', (req, res) => {
 
 // Rutas API para clientes
 app.use('/api/clientes', clientesRouter);
+
+// Rutas API para usuarios
+app.use('/api/usuarios', userRoutes);
 
 // Manejo de rutas no encontradas
 app.use((req, res, next) => {
